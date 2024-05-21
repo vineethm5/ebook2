@@ -31,6 +31,7 @@
 
 	<!-- Add Book -->
 	<section class="add--section">
+		{% with add_book_url= user.id %}
 		<form method="post" action="{% url 'addBook' user.id %}" enctype="multipart/form-data">
 
 			{% csrf_token %}
@@ -38,6 +39,7 @@
 			
 			<button type="submit" class="btn btn-primary mt-3">Add Book</button>
 		</form>
+		{% endwith %}
 	</section>
 
 

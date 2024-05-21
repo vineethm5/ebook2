@@ -44,8 +44,8 @@ def register(req):
     return render(req,"register.html")
 
 @login_required
-def addBook(req,user_id):
-    # user=User.objects.get(id=user_id)
+def addBook(req,userid):
+    user=User.objects.get(id=userid)
     return render(req,"addBook.html")
 
 def logout(req):
