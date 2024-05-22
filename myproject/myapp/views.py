@@ -3,6 +3,8 @@ from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from myapp.forms import ebookforms
+from myapp.models import ebookss
 # Create your views here.
 def home(req):
     return render(req,"home.html")
@@ -45,8 +47,9 @@ def register(req):
 
 @login_required
 def addBook(req,userid):
-    user=User.objects.get(id=userid)
-    return render(req,"addBook.html")
+    form=ebookforms
+    # user=User.objects.get(id=userid)
+    return render(req,"addBook.html",{'form': form})
 
 def logout(req):
     auth.logout(req)
