@@ -61,13 +61,7 @@ def register(req):
 #         form = ebookforms()
 #     return render(req,"addBook.html",{'user':userid,'forms':form})
 
-def addBook(request, id=None):
-    print("hi")
-    if id is not None:
-        user = get_object_or_404(User, id=id)
-    else:
-        user = None
-
+def addBook1(request,userid=None):
     if request.method == 'POST':
         form = ebookforms(request.POST, request.FILES)
         if form.is_valid():
@@ -76,7 +70,9 @@ def addBook(request, id=None):
     else:
         form = ebookforms()
 
-    return render(request, 'addBook.html', {'form': form, 'user': user})
+    return render(request, 'addBook.html',{'userr':userid,'formm':form})
+
+
 
 def logout(req):
     auth.logout(req)

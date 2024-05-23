@@ -57,6 +57,7 @@
 			<p class="brand--details">The one stop solution for all your reading needs.</p>
 			{% if user.is_authenticated %}
 			<a class="btn btn-outline-success btn-lg" href="{% url 'addBook' user.id %}">Add Book</a>
+			
 			{% else %}
 
 					<!-- Button trigger modal -->

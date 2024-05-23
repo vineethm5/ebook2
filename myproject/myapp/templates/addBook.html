@@ -35,7 +35,7 @@
             <h1 class="mb-4">Add a New Book</h1>
             <form method="post" action="{% url 'addBook' user.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form }}
                 <button type="submit" class="btn btn-primary mt-3">Add Book</button>
             </form>
         </div>
