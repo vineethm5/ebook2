@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -46,10 +46,37 @@ def register(req):
     return render(req,"register.html")
 
 @login_required
-def addBook(req,userid):
-    form=ebookforms
-    # user=User.objects.get(id=userid)
-    return render(req,"addBook.html",{'form': form})
+# def addBook(req,userid=None):
+#     if id is not None:
+#         user = get_object_or_404(User, id=id)
+#     else:
+#         user = None  # Handle case where no user id is provided
+
+#     if req.method == 'POST':
+#         form = ebookforms(req.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home')  # Redirect to a success page or home page
+#     else:
+#         form = ebookforms()
+#     return render(req,"addBook.html",{'user':userid,'forms':form})
+
+def addBook(request, id=None):
+    print("hi")
+    if id is not None:
+        user = get_object_or_404(User, id=id)
+    else:
+        user = None
+
+    if request.method == 'POST':
+        form = ebookforms(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Ensure 'home' is the correct name for your success URL
+    else:
+        form = ebookforms()
+
+    return render(request, 'addBook.html', {'form': form, 'user': user})
 
 def logout(req):
     auth.logout(req)
@@ -59,4 +86,4 @@ def contri(req,userid):
     pass
 
 def addBook(req,userid):
-    pass
+    pass 
