@@ -12,7 +12,7 @@ class ebookforms(forms.ModelForm):
 
     class Meta:
         model = ebookss
-        fields = ['title', 'summary', 'pages', 'pdf', 'category']
+        fields = ['title', 'summary', 'pages', 'pdf', 'category','author']
 
     def __init__(self, *args, **kwargs):
         super(ebookforms, self).__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class ebookforms(forms.ModelForm):
         self.fields['pages'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter pages'})
         self.fields['pdf'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Enter PDF'})
         self.fields['category'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Select category'})
-
+        self.fields['author'].widget.attrs.update({'class':'form-control','placeholder':'Place Holder'})
         for field_name, field in self.fields.items():
             field.required = True
 
