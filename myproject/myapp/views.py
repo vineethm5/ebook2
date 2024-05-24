@@ -46,21 +46,6 @@ def register(req):
     return render(req,"register.html")
 
 @login_required
-# def addBook(req,userid=None):
-#     if id is not None:
-#         user = get_object_or_404(User, id=id)
-#     else:
-#         user = None  # Handle case where no user id is provided
-
-#     if req.method == 'POST':
-#         form = ebookforms(req.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home')  # Redirect to a success page or home page
-#     else:
-#         form = ebookforms()
-#     return render(req,"addBook.html",{'user':userid,'forms':form})
-
 def addBook1(request,userid=None):
     if request.method == 'POST':
         form = ebookforms(request.POST, request.FILES)
@@ -72,14 +57,42 @@ def addBook1(request,userid=None):
 
     return render(request, 'addBook.html',{'userr':userid,'formm':form})
 
-
+def exploree(req):
+    educationalbook=ebookss.objects.filter(category='Education')
+    fictiona=ebookss.objects.filter(category='Fiction')
+    science=ebookss.objects.filter(category='Science')
+    return render(req,"explore.html",{'education':educationalbook,"fiction":fictiona,"science":science})
 
 def logout(req):
     auth.logout(req)
     return redirect("/")
 
-def contri(req,userid):
-    pass
+def contri(req,bid):
+    ebookcon=ebookss.objects.filter(id=bid)
+    return render(req,"contri.html",{'books':ebookcon})
 
-def addBook(req,userid):
-    pass 
+def viewbooks(req,bid):
+    ebookd=ebookss.objects.get(id=bid)
+    return render(req,"viewBook.html",{'book':ebookd})
+
+def deleteBook(req,bid):
+    book=ebookss.objects.get(id=bid)
+    book.delete()
+    return redirect("/")
+
+def editBooks(req,bid):
+    book=ebookss.objects.get(id=bid)
+    if req.method == 'POST':
+        #When you want to update an existing object, you retrieve the object from the database and pass it to the form as an instance. This pre-fills the form with the existing data and allows the user to edit it.
+        form=ebookforms(req.POST,req.FILES,instance=book)
+        if form.is_valid():
+            form.save()
+            print()
+            print("book updated succesfully")
+        else:
+            print(form.errors)
+    else:
+        form=ebookforms(instance=book)
+    return render(req,"editbook.html",{'form':form})
+
+    
